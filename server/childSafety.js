@@ -151,3 +151,88 @@ export function getBlockedResponse() {
 export function getSafeFallback() {
   return { ...SAFE_FALLBACK };
 }
+
+/**
+ * Respuesta local para cuando Gemini está saturado.
+ * Mantiene experiencia educativa sin exponer errores técnicos.
+ */
+export function getServiceBusyLearningFallback({ mode = 'general', message = '' } = {}) {
+  const text = String(message || '').trim();
+
+  if (mode === 'matematicas') {
+    return {
+      safe: true,
+      category: 'educational',
+      emotion: 'curious',
+      message:
+        'Mientras vuelve el servicio, practicamos: si tienes 7 manzanas y te dan 5 más, ¿cuántas tienes en total? Pista: suma 7 + 5 paso a paso.',
+      suggestedFollowUp: 'Cuando respondas, te doy otra suma parecida.',
+    };
+  }
+
+  if (mode === 'lectura') {
+    return {
+      safe: true,
+      category: 'educational',
+      emotion: 'thinking',
+      message:
+        'Leamos una mini práctica: "Luna cuida una planta cada día". ¿Qué hace Luna todos los días? Respóndelo con tus palabras.',
+      suggestedFollowUp: 'Luego te doy otra oración para comprensión lectora.',
+    };
+  }
+
+  if (mode === 'ingles') {
+    return {
+      safe: true,
+      category: 'educational',
+      emotion: 'happy',
+      message:
+        'Práctica rápida de inglés: "cat = gato", "dog = perro", "book = libro". ¿Cómo se dice "libro" en inglés?',
+      suggestedFollowUp: 'Después practicamos una frase corta en inglés.',
+    };
+  }
+
+  if (mode === 'ciencias') {
+    return {
+      safe: true,
+      category: 'educational',
+      emotion: 'curious',
+      message:
+        'Dato de ciencias: las plantas necesitan agua, luz y aire para vivir. ¿Cuál de esas tres cosas crees que más les ayuda a crecer?',
+      suggestedFollowUp: 'Te explico la respuesta cuando me digas tu idea.',
+    };
+  }
+
+  if (mode === 'adivinanzas') {
+    return {
+      safe: true,
+      category: 'game',
+      emotion: 'surprised',
+      message:
+        'Adivinanza: tiene agujas y no pincha, tiene números y no suma. ¿Qué es?',
+      suggestedFollowUp: 'Si quieres, te doy una pista o una nueva adivinanza.',
+    };
+  }
+
+  if (mode === 'cuentos') {
+    return {
+      safe: true,
+      category: 'story',
+      emotion: 'happy',
+      message:
+        'Mini cuento: "Tomás encontró una semilla y la plantó con cariño. Cada día la regó, y pronto nació una flor amarilla". ¿Qué valor enseñó Tomás?',
+      suggestedFollowUp: 'Si quieres, continuamos el cuento en 3 líneas más.',
+    };
+  }
+
+  return {
+    safe: true,
+    category: 'general',
+    emotion: 'thinking',
+    message:
+      text.length > 0
+        ? `Estoy tardando un poquito en responder completo. Mientras tanto, tu pregunta fue: "${text.slice(0, 80)}". ¿Te gustaría que la dividamos en pasos cortos?`
+        : 'Estoy tardando un poquito en responder completo. Mientras tanto, ¿quieres una actividad corta de práctica?',
+    suggestedFollowUp: 'Puedo darte una práctica de matemáticas, lectura o inglés.',
+  };
+}

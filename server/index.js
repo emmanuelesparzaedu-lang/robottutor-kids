@@ -7,6 +7,7 @@ import {
   validateOutput,
   getBlockedResponse,
   getSafeFallback,
+  getServiceBusyLearningFallback,
 } from './childSafety.js';
 import { chatWithGemini } from './geminiClient.js';
 
@@ -229,12 +230,10 @@ app.post('/api/chat', async (req, res) => {
     try {
       await acquireGeminiSlot();
     } catch {
-      return res.status(503).json({
-        safe: true,
-        category: 'general',
-        emotion: 'thinking',
-        message: 'Tenemos muchas consultas en este momento. Intenta de nuevo en unos segundos.',
-        suggestedFollowUp: '¿Quieres preparar otra pregunta mientras tanto?',
+      return res.json({
+        ...getServiceBusyLearningFallback({ mode, message }),
+        suggestedFollowUp:
+          'Estamos recibiendo muchas consultas. Seguimos aprendiendo mientras se libera el servicio.',
       });
     }
 
@@ -252,12 +251,10 @@ app.post('/api/chat', async (req, res) => {
       const isOverloaded = errCode === 429;
       console.error('[Gemini error]', errCode, err.message);
       if (isOverloaded) {
-        return res.status(503).json({
-          safe: true,
-          category: 'general',
-          emotion: 'thinking',
-          message: 'El servicio está ocupado por muchas consultas. Espera un minuto y volvemos a intentar.',
-          suggestedFollowUp: '¿Quieres que te deje una pregunta de práctica mientras tanto?',
+        return res.json({
+          ...getServiceBusyLearningFallback({ mode, message }),
+          suggestedFollowUp:
+            'El servicio está ocupado por muchas consultas. Te dejo práctica y en breve volvemos a intentar.',
         });
       }
       return res.json(getSafeFallback());

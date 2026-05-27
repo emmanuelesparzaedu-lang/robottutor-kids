@@ -17,3 +17,15 @@ services:
         value: gemini-2.0-flash
       - key: NODE_ENV
         value: production
+      - key: MAX_CONCURRENT_GEMINI
+        value: "12"
+      - key: MAX_QUEUE_WAIT_MS
+        value: "35000"
+      - key: GEMINI_MAX_RETRIES
+        value: "3"
+      - key: GEMINI_RETRY_BASE_MS
+        value: "900"
+      - key: GEMINI_TIMEOUT_MS
+        value: "22000"
+      - key: RATE_LIMIT_PER_MIN
+        value: "30"

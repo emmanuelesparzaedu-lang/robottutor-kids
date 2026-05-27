@@ -181,6 +181,8 @@ export default function App() {
         <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
           <section className="lg:col-span-4 card-kid flex flex-col items-center justify-center">
             <RobotFace
+              avatarMode={robot.avatarMode || 'preset'}
+              customAvatar={robot.customAvatar}
               bodyColor={robot.bodyColor}
               eyeType={robot.eyeType}
               mouthType={robot.mouthType}

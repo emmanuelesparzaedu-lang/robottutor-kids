@@ -72,6 +72,8 @@ const EMOTION_CLASSES = {
 };
 
 export default function RobotFace({
+  avatarMode = 'preset',
+  customAvatar = null,
   bodyColor = '#63B3ED',
   eyeType = 'round',
   mouthType = 'smile',
@@ -85,11 +87,36 @@ export default function RobotFace({
   const renderEyes = EYE_RENDERERS[eyeType] || EYE_RENDERERS.round;
   const renderMouth = MOUTH_RENDERERS[mouthType] || MOUTH_RENDERERS.smile;
   const animClass = isSpeaking ? 'animate-pulse-glow' : EMOTION_CLASSES[activeEmotion] || '';
+  const showCustom = avatarMode === 'draw' && customAvatar;
 
   return (
     <div className={`flex flex-col items-center ${animClass}`}>
       <p className="text-xl font-extrabold text-slate-700 mb-2 tracking-wide">{name}</p>
 
+      {showCustom ? (
+        <div
+          className={`w-full max-w-[280px] rounded-3xl border-4 border-sky-200 bg-white p-3 shadow-xl ${
+            isSpeaking ? 'ring-4 ring-sky-300 ring-offset-2' : ''
+          }`}
+        >
+          <img
+            src={customAvatar}
+            alt={`Dibujo de ${name}`}
+            className="w-full aspect-square object-contain rounded-2xl"
+          />
+          {isSpeaking && (
+            <div className="mt-2 flex justify-center gap-1">
+              {[0, 1, 2].map((i) => (
+                <span
+                  key={i}
+                  className="w-2 h-2 bg-sky-400 rounded-full animate-bounce"
+                  style={{ animationDelay: `${i * 0.15}s` }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
       <svg
         viewBox="0 0 300 320"
         className="w-full max-w-[280px] drop-shadow-xl transition-all duration-500"
@@ -141,8 +168,9 @@ export default function RobotFace({
         <rect x="105" y="290" width="30" height="20" rx="8" fill="#718096" stroke="#2D3748" strokeWidth="2" />
         <rect x="165" y="290" width="30" height="20" rx="8" fill="#718096" stroke="#2D3748" strokeWidth="2" />
       </svg>
+      )}
 
-      {isSpeaking && (
+      {isSpeaking && !showCustom && (
         <div className="mt-2 flex gap-1">
           {[0, 1, 2].map((i) => (
             <span

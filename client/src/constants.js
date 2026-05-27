@@ -23,12 +23,26 @@ export const GRADES = [
 
 export const DEFAULT_ROBOT = {
   name: 'RoboTutor',
+  avatarMode: 'preset',
+  customAvatar: null,
   bodyColor: '#63B3ED',
   eyeType: 'round',
   mouthType: 'smile',
   antennas: true,
   expression: 'happy',
 };
+
+/** Colores para el lienzo de dibujo del asistente */
+export const DRAW_COLORS = [
+  '#2D3748', '#63B3ED', '#68D391', '#F6AD55', '#FC8181',
+  '#B794F4', '#F687B3', '#FFD700', '#718096', '#FFFFFF',
+];
+
+export const DRAW_BRUSH_SIZES = [
+  { id: 'thin', label: 'Fino', size: 4 },
+  { id: 'medium', label: 'Medio', size: 8 },
+  { id: 'thick', label: 'Grueso', size: 14 },
+];
 
 export const DEFAULT_ADULT_SETTINGS = {
   grade: '3',
