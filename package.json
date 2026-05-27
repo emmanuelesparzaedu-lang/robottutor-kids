@@ -1,0 +1,23 @@
+{
+  "name": "robottutor-kids",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Asistente virtual educativo seguro para niños con Gemini API",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix client && npm install --prefix server",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "npm run start --prefix server",
+    "apk": "powershell -ExecutionPolicy Bypass -File scripts/build-apk.ps1",
+    "apk:cloud": "powershell -ExecutionPolicy Bypass -File scripts/build-apk-cloud.ps1",
+    "apk:standalone": "powershell -ExecutionPolicy Bypass -File scripts/build-apk-standalone.ps1",
+    "cloud:setup": "powershell -ExecutionPolicy Bypass -File scripts/setup-cloud.ps1",
+    "mobile:server": "powershell -ExecutionPolicy Bypass -File scripts/start-mobile.ps1",
+    "apk:playstore": "powershell -ExecutionPolicy Bypass -File scripts/build-playstore.ps1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

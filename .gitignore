@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+server/.env
+client/.env.production.local
+client/.env.production*
+cloud-api-url.txt
+*.apk
+*.aab
+release-keys/
+client/android/keystore.properties
+*.log
+.DS_Store
+Thumbs.db

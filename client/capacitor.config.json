@@ -1,0 +1,12 @@
+{
+  "appId": "com.robottutor.kids",
+  "appName": "RoboTutor Kids",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "http",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}
