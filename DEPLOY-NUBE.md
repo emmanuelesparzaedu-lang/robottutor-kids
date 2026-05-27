@@ -77,6 +77,19 @@ Instala `RoboTutorKids-Cloud.apk` en el Android. **No necesitas configurar IP** 
 
 ---
 
+## Claves de Google AI Studio (importante)
+
+En [Google AI Studio → Claves de API](https://aistudio.google.com/apikey):
+
+1. Usa **una sola clave** en Render: la de **«asistente para niños»** (o crea una nueva solo para escuela).
+2. **No** pongas la clave en la APK independiente para muchos alumnos: todos comparten el mismo cupo y verás error 429.
+3. Las dos claves del mismo proyecto (**Default Gemini Project**) comparten **el mismo límite** — crear otra clave **no duplica** la capacidad.
+4. Con **Nivel gratuito** el cupo es bajo (aprox. 5–15 preguntas por minuto según modelo). Varios niños a la vez saturan Gemini.
+5. Para uso escolar estable: en la clave, **Configurar la facturación** (Tier 1). Sigue siendo barato por uso y sube mucho el límite (cientos de peticiones/minuto).
+6. En Render, variable recomendada: `GEMINI_MODEL=gemini-2.5-flash-lite` (mejor cupo gratuito que `gemini-2.0-flash`).
+
+Después de cambiar `GEMINI_API_KEY` o `GEMINI_MODEL` en Render → **Save** → **Manual Deploy**.
+
 ## Seguridad
 
 - La API key **solo** vive en Render (variables de entorno), nunca en la APK

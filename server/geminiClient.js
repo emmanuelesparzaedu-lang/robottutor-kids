@@ -98,7 +98,7 @@ function parseJsonResponse(text) {
  */
 export async function chatWithGemini({ message, mode, grade, history, settings }) {
   const ai = getClient();
-  const model = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
   const contextPrompt = buildContextPrompt({ mode, grade, settings });
 
   const contents = [];
